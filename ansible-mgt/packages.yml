@@ -1,0 +1,36 @@
+---
+- name: Install basic packages on managed hosts
+  hosts: all
+  vars:
+    myepel: false
+  tasks:
+
+  - name: Install EPEL Repository on RedHat Hosts
+    yum:
+      name: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm'
+      state: present
+      disable_gpg_check: true
+    when: (ansible_facts['distribution'] == "RedHat") and myepel
+
+  - name: Install basic packages in managed hosts - RedHat
+    yum:
+      name: "{{ item }}"
+      state: latest
+    when: ansible_facts['distribution'] == "RedHat" 
+    loop:
+      - ncdu
+      - htop
+      - wget
+      - curl 
+      - yum-utils
+
+  - name: Install basic packages in managed hosts - Debian
+    apt:
+      name: "{{ item }}"
+      state: latest
+    when: ansible_facts['distribution'] == "Debian" 
+    loop:
+      - ncdu
+      - htop
+      - wget
+      - curl 

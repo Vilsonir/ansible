@@ -1,0 +1,7 @@
+---
+- name: Basic Host Configs
+  hosts: all
+  tasks:
+  - name: Configuring Timezone
+    timezone:
+      name: Pacific/Auckland
