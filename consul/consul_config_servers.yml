@@ -1,0 +1,39 @@
+---
+- name: Config Consul Servers
+  hosts: servers
+  vars_files:
+    - vars/basic.yml
+  tasks:
+  - name: Deploy basic config file to run a 3 node cluster
+    template:
+      src: templates/consul-server-basic.hcl.j2
+      dest: /etc/consul.d/consul.hcl
+    when: (basic|bool)
+    notify: restart consul
+
+  - name: Deploy gossip config file to run a 3 node cluster
+    template:
+      src: templates/consul-server-gossip.hcl.j2
+      dest: /etc/consul.d/consul.hcl
+    when: (gossip|bool)
+    notify: restart consul
+
+  - name: Deploy tls config file to run a 3 node cluster
+    template:
+      src: templates/consul-server-tls.hcl.j2
+      dest: /etc/consul.d/consul.hcl
+    when: (tls|bool)
+    notify: restart consul
+
+  - name: Start and enable consul service
+    service:
+      name: consul
+      state: started
+      enabled: true
+
+  handlers:
+  - name: restart consul
+    service:
+      name: consul
+      state: restarted
+

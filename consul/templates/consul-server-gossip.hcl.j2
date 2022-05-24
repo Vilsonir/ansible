@@ -1,0 +1,18 @@
+datacenter = "home-dc"
+data_dir = "/opt/consul"
+node_name = "{{ ansible_facts['hostname'] }}"
+client_addr = "0.0.0.0"
+server = true
+bind_addr = "0.0.0.0" # Listen on all IPv4
+advertise_addr = "{{ ansible_facts['default_ipv4']['address'] }}"
+bootstrap_expect=3
+retry_join = ["consul1.home.mynet","consul2.home.mynet","consul3.home.mynet"]
+ui_config{
+  enabled=true
+}
+connect{
+  enabled=true
+} 
+encrypt = "FWO59KrqyGds5QqvMwxti7HhPJ4r9YqZe9+DqXzz0Sw="
+encrypt_verify_outgoing = true
+encrypt_verify_incoming = false

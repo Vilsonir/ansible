@@ -1,0 +1,48 @@
+---
+- name: Configure Repository and install Consul on managed hosts
+  hosts: all
+  tasks:
+
+  - name: Add GPG key on Debian hosts
+    apt_key:
+      url: https://apt.releases.hashicorp.com/gpg
+      state: present
+    when: ansible_facts['distribution'] == "Debian"
+
+  - name: Add Consul Repository on Debian hosts
+    apt_repository:
+      repo: 'deb https://apt.releases.hashicorp.com buster main'
+      state: present
+    when: ansible_facts['distribution'] == "Debian"
+      
+  - name: Add Consul Repository on HedHat hosts
+    get_url:
+      url: 'https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo'
+      dest: /etc/yum.repos.d/consul.repo
+      owner: root
+      group: root
+      mode: 0644
+    when: ansible_facts['distribution'] == "RedHat"
+
+  - name: Install Consul Package on Debian hosts
+    apt:
+      name: consul 
+      state: present
+    when: ansible_facts['distribution'] == "Debian"
+
+  - name: Install Consul Package on RedHat hosts
+    yum:
+      name: consul 
+      state: present
+    when: ansible_facts['distribution'] == "RedHat"
+
+  - name: Configure Firewall on RedHat hosts
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      immediate: truw
+      state: enabled
+    when: ansible_facts['distribution'] == "RedHat"
+    loop:
+      - 
+

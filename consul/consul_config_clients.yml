@@ -1,0 +1,39 @@
+---
+- name: Config Consul Clients
+  hosts: clients
+  vars_files:
+    - vars/basic.yml
+  tasks:
+  - name: Deploy basic config file to the consul clients
+    template:
+      src: templates/consul-client-basic.hcl.j2
+      dest: /etc/consul.d/consul.hcl
+    when: (basic|bool)
+    notify: restart consul
+
+  - name: Deploy gossip config file to the consul clients
+    template:
+      src: templates/consul-client-gossip.hcl.j2
+      dest: /etc/consul.d/consul.hcl
+    when: (gossip|bool)
+    notify: restart consul
+
+  - name: Deploy tls config file to the consul clients
+    template:
+      src: templates/consul-client-tls.hcl.j2
+      dest: /etc/consul.d/consul.hcl
+    when: (tls|bool)
+    notify: restart consul
+
+  - name: Start and enable consul service
+    service:
+      name: consul
+      state: started
+      enabled: true
+
+  handlers:
+  - name: restart consul
+    service:
+      name: consul
+      state: restarted
+
