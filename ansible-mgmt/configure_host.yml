@@ -1,0 +1,13 @@
+---
+
+- name: Apply updates
+  import_playbook: updates.yml
+
+- name: Apply hostname
+  import_playbook: hostname.yml
+
+- name: Apply packages
+  import_playbook: packages.yml
+
+- name: Apply node_exporter
+  import_playbook: node_exporter.yml

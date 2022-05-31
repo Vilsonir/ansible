@@ -1,0 +1,19 @@
+---
+- name: Configure prometheus server
+  hosts: all
+  tasks:
+  - name: Template prometheus config file
+    template:
+      src: templates/prometheus.yml.j2
+      dest: /etc/prometheus/prometheus.yml
+      owner: prometheus
+      group: prometheus
+    notify: restart prometheus
+    when: "'prometheus' in group_names"
+
+  handlers:
+  - name: restart prometheus
+    service:
+      name: prometheus
+      state: restarted
+

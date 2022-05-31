@@ -23,6 +23,8 @@
       - wget
       - curl 
       - yum-utils
+      - tcpdump  
+      - vim
 
   - name: Install basic packages in managed hosts - Debian
     apt:
@@ -34,3 +36,6 @@
       - htop
       - wget
       - curl 
+      - python3-openssl
+      - tcpdump
+      - vim

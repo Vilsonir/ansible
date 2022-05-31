@@ -7,3 +7,14 @@ bind_addr = "0.0.0.0" # Listen on all IPv4
 advertise_addr = "{{ ansible_facts['default_ipv4']['address'] }}"
 retry_join = ["consul1.home.mynet","consul2.home.mynet","consul3.home.mynet"]
 
+encrypt = "FWO59KrqyGds5QqvMwxti7HhPJ4r9YqZe9+DqXzz0Sw="
+encrypt_verify_outgoing = true
+encrypt_verify_incoming = true
+
+ca_file = "/etc/ssl/consul/consul-agent-ca.pem"
+verify_incoming = true
+verify_outgoing = true
+auto_encrypt = {
+  tls = true
+}
+

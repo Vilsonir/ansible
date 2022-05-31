@@ -18,12 +18,32 @@
     when: (gossip|bool)
     notify: restart consul
 
-  - name: Deploy tls config file to the consul clients
-    template:
-      src: templates/consul-client-tls.hcl.j2
-      dest: /etc/consul.d/consul.hcl
+  - name: Deploy TLS configuration
+    block:
+            
+    - name: Ensure /etc/ssl/consul directory is present
+      file:
+        path: /etc/ssl/consul
+        state: directory
+        owner: consul
+        group: consul
+        mode: 0750
+
+    - name: Copy ca file
+      copy:
+        src: /home/devops/files/consul_certs/consul-agent-ca.pem
+        dest: /etc/ssl/consul/consul-agent-ca.pem
+        owner: consul
+        group: consul
+        mode: 0640
+
+    - name: Deploy tls config file to the consul clients
+      template:
+        src: templates/consul-client-tls.hcl.j2
+        dest: /etc/consul.d/consul.hcl
+      notify: restart consul
+
     when: (tls|bool)
-    notify: restart consul
 
   - name: Start and enable consul service
     service:

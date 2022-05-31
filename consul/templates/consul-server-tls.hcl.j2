@@ -13,4 +13,18 @@ ui_config{
 connect{
   enabled=true
 } 
+encrypt = "FWO59KrqyGds5QqvMwxti7HhPJ4r9YqZe9+DqXzz0Sw="
+encrypt_verify_outgoing = true
+encrypt_verify_incoming = true
+
+verify_incoming = true
+verify_outgoing = true
+verify_server_hostname = true
+ca_file = "/etc/ssl/consul/consul-agent-ca.pem"
+cert_file = "/etc/ssl/consul/home-dc-server-consul-0.pem"
+key_file = "/etc/ssl/consul/home-dc-server-consul-0-key.pem"
+
+auto_encrypt {
+  allow_tls = true
+}
 
