@@ -14,10 +14,12 @@ prometheus1.home.mynet
 [grafana]
 grafana1.home.mynet
 
-[ansible]
-ct.home.mynet
-a2.home.mynet
-a3.home.mynet
-a4.home.mynet
-a5.home.mynet
+[proxmox]
+pve1.home.mynet
+pve2.home.mynet
+pve3.home.mynet
+
+[puppet]
+pup-ct.home.mynet
+pup-ag.home.mynet
 

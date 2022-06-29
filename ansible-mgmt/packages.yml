@@ -25,6 +25,7 @@
       - yum-utils
       - tcpdump  
       - vim
+      - git
 
   - name: Install basic packages in managed hosts - Debian
     apt:
@@ -39,3 +40,4 @@
       - python3-openssl
       - tcpdump
       - vim
+      - git

@@ -1,6 +1,8 @@
 ---
 - name: Install and configure node_exporter on managed hosts
   hosts: all
+  remote_user: devops
+
   tasks:
   - name: Create user node_exporter
     user:

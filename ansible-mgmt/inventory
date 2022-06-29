@@ -23,3 +23,14 @@ a5.home.mynet
 
 [scrumpy]
 scrumpy1.home.mynet
+
+
+[proxmox]
+pve1.home.mynet
+pve2.home.mynet
+pve3.home.mynet
+
+
+[puppet]
+pup-ct.home.mynet
+pup-ag.home.mynet
